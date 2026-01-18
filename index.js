@@ -10,7 +10,7 @@ const port = process.env.PORT || 4000;
 app.use(cors());
 
 // Load products data
-const products = require("../data/products.json");
+const products = require("./data/products.json");
 
 app.get("/", (req, res) => {
   res.send("API is running...");
@@ -24,7 +24,7 @@ app.get("/api/products", (req, res) => {
 // Get product by ID
 app.get("/api/products/:id", (req, res) => {
   const productId = parseInt(req.params.id);
-  const product = products.find((p) => p.id === productId);
+  const product = products.find(p => p.id === productId);
 
   if (!product) {
     return res.status(404).json({ message: "Product not found" });
@@ -33,4 +33,6 @@ app.get("/api/products/:id", (req, res) => {
   res.json(product);
 });
 
-module.exports = app;
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
